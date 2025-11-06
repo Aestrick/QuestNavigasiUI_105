@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.compose.foundation.layout.systemBarsPadding // <-- IMPORT BARU
 
 @Composable
 fun TabelDataScreen(
@@ -24,13 +25,14 @@ fun TabelDataScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding() // <-- FIX-NYA DI SINI
             .padding(dimensionResource(R.dimen.padding_medium)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
     ) {
         Text(
             text = stringResource(R.string.tampil),
             fontSize = 20.sp,
-            color = Color.White // <-- FIX #2: Ganti ke Putih
+            color = Color.White
         )
 
         // Tampilkan Data
@@ -38,7 +40,6 @@ fun TabelDataScreen(
             label = stringResource(R.string.nama_lengkap),
             value = nama ?: ""
         )
-        // Beri warna pada Divider biar kelihatan di mode gelap
         Divider(
             thickness = dimensionResource(R.dimen.thickness_divider),
             color = Color.Gray
@@ -80,12 +81,12 @@ fun DataRow(label: String, value: String) {
         Text(
             text = "$label: ",
             fontWeight = FontWeight.Bold,
-            color = Color.White // <-- FIX #2: Ganti ke Putih
+            color = Color.White
         )
         Text(
             text = value,
-            color = Color.White, // <-- FIX #2: Ganti ke Putih
-            fontWeight = FontWeight.Bold // <-- FIX #2: Ditebalkan
+            color = Color.White,
+            fontWeight = FontWeight.Bold
         )
     }
 }
