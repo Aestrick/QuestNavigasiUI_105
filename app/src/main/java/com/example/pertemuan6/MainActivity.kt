@@ -3,45 +3,57 @@ package com.example.pertemuan6
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.pertemuan6.ui.theme.Pertemuan6Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             Pertemuan6Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    // --- INTI NAVIGASI & MVVM ---
+
+                    // 1. Buat NavController (Remote TV)
+                    val navController = rememberNavController()
+
+                    // 2. Buat satu instance ViewModel
+                    // Ini akan dibagikan ke kedua screen
+                    val viewModel: FormulirViewModel = viewModel()
+
+                    // 3. Buat NavHost (TV-nya)
+                    NavHost(
+                        navController = navController,
+                        startDestination = "formulir" // Layar pertama
+                    ) {
+                        // Layar "formulir"
+                        composable("formulir") {
+                            FormulirScreen(
+                                viewModel = viewModel,
+                                navController = navController
+                            )
+                        }
+
+                        // Layar "tabelData"
+                        composable("tabelData") {
+                            TabelDataScreen(
+                                viewModel = viewModel,
+                                navController = navController
+                            )
+                        }
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Pertemuan6Theme {
-        Greeting("Android")
     }
 }
