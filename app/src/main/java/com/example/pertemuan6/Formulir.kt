@@ -14,16 +14,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.compose.foundation.layout.systemBarsPadding // <-- IMPORT BARU
 
 @Composable
 fun FormulirScreen(
     navController: NavController
 ) {
-    // --- KITA SIMPAN DATA DI SINI (BUKAN DI VIEWMODEL) ---
     var nama by remember { mutableStateOf("") }
     var alamat by remember { mutableStateOf("") }
     var jenisKelamin by remember { mutableStateOf("") }
-    // --------------------------------------------------
 
     val jenisKelaminOptions = listOf("Laki-laki", "Perempuan")
 
@@ -31,6 +30,7 @@ fun FormulirScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .systemBarsPadding() // <-- FIX #1: TAMBAHKAN INI
     ) {
         // Header Biru
         Box(
@@ -56,8 +56,8 @@ fun FormulirScreen(
         ) {
             // Input Nama
             OutlinedTextField(
-                value = nama, // <-- Pakai state lokal
-                onValueChange = { nama = it }, // <-- Pakai state lokal
+                value = nama,
+                onValueChange = { nama = it },
                 label = { Text(stringResource(R.string.nama_lengkap)) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -80,15 +80,15 @@ fun FormulirScreen(
                     Row(
                         Modifier
                             .selectable(
-                                selected = jenisKelamin == text, // <-- Pakai state lokal
-                                onClick = { jenisKelamin = text } // <-- Pakai state lokal
+                                selected = jenisKelamin == text,
+                                onClick = { jenisKelamin = text }
                             )
                             .padding(horizontal = dimensionResource(R.dimen.padding_small)),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = jenisKelamin == text, // <-- Pakai state lokal
-                            onClick = { jenisKelamin = text } // <-- Pakai state lokal
+                            selected = jenisKelamin == text,
+                            onClick = { jenisKelamin = text }
                         )
                         Text(text = text, color = Color.DarkGray)
                     }
@@ -97,8 +97,8 @@ fun FormulirScreen(
 
             // Input Alamat
             OutlinedTextField(
-                value = alamat, // <-- Pakai state lokal
-                onValueChange = { alamat = it }, // <-- Pakai state lokal
+                value = alamat,
+                onValueChange = { alamat = it },
                 label = { Text(stringResource(R.string.alamat)) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -114,9 +114,7 @@ fun FormulirScreen(
             // Tombol Submit
             Button(
                 onClick = {
-                    // --- KIRIM DATA LEWAT NAVIGASI ---
                     navController.navigate("tabelData/$nama/$jenisKelamin/$alamat")
-                    // ---------------------------------
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

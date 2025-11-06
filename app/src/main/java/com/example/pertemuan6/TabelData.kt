@@ -17,11 +17,9 @@ import androidx.navigation.NavController
 @Composable
 fun TabelDataScreen(
     navController: NavController,
-    // --- KITA TERIMA DATA DARI NAVIGASI ---
     nama: String?,
     jenisKelamin: String?,
     alamat: String?
-    // -------------------------------------
 ) {
     Column(
         modifier = Modifier
@@ -32,27 +30,37 @@ fun TabelDataScreen(
         Text(
             text = stringResource(R.string.tampil),
             fontSize = 20.sp,
-            color = Color.Black
+            color = Color.White // <-- FIX #2: Ganti ke Putih
         )
 
         // Tampilkan Data
         DataRow(
             label = stringResource(R.string.nama_lengkap),
-            value = nama ?: "" // Tampilkan data dari parameter
+            value = nama ?: ""
         )
-        Divider(thickness = dimensionResource(R.dimen.thickness_divider))
+        // Beri warna pada Divider biar kelihatan di mode gelap
+        Divider(
+            thickness = dimensionResource(R.dimen.thickness_divider),
+            color = Color.Gray
+        )
 
         DataRow(
             label = stringResource(R.string.jenis_kelamin),
-            value = jenisKelamin ?: "" // Tampilkan data dari parameter
+            value = jenisKelamin ?: ""
         )
-        Divider(thickness = dimensionResource(R.dimen.thickness_divider))
+        Divider(
+            thickness = dimensionResource(R.dimen.thickness_divider),
+            color = Color.Gray
+        )
 
         DataRow(
             label = stringResource(R.string.alamat),
-            value = alamat ?: "" // Tampilkan data dari parameter
+            value = alamat ?: ""
         )
-        Divider(thickness = dimensionResource(R.dimen.thickness_divider))
+        Divider(
+            thickness = dimensionResource(R.dimen.thickness_divider),
+            color = Color.Gray
+        )
 
         // Tombol Kembali
         Button(
@@ -72,11 +80,12 @@ fun DataRow(label: String, value: String) {
         Text(
             text = "$label: ",
             fontWeight = FontWeight.Bold,
-            color = Color.Black
+            color = Color.White // <-- FIX #2: Ganti ke Putih
         )
         Text(
             text = value,
-            color = Color.DarkGray
+            color = Color.White, // <-- FIX #2: Ganti ke Putih
+            fontWeight = FontWeight.Bold // <-- FIX #2: Ditebalkan
         )
     }
 }
