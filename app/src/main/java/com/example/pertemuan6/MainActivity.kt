@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = "formulir" // Layar pertama
+                        startDestination = "formulir"
                     ) {
                         // Layar "formulir" (Tidak butuh argumen)
                         composable("formulir") {
