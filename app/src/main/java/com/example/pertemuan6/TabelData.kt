@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 
 @Composable
 fun TabelDataScreen(
-    viewModel: FormulirViewModel,
+    viewModel: `FormulirViewModel.kt`,
     navController: NavController
 ) {
     // Ambil data (state) dari ViewModel yang SAMA

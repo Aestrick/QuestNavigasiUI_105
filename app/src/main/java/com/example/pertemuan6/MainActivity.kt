@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
 
                     // 2. Buat satu instance ViewModel
                     // Ini akan dibagikan ke kedua screen
-                    val viewModel: FormulirViewModel = viewModel()
+                    val viewModel: `FormulirViewModel.kt` = viewModel()
 
                     // 3. Buat NavHost (TV-nya)
                     NavHost(
