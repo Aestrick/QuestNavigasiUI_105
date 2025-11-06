@@ -72,7 +72,6 @@ fun TabelDataScreen(
     }
 }
 
-// Fungsi bantuan biar rapi dan teksnya tebal
 @Composable
 fun DataRow(label: String, value: String) {
     Row(modifier = Modifier.padding(vertical = 8.dp)) {
