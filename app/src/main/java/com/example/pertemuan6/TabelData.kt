@@ -35,7 +35,6 @@ fun TabelDataScreen(
             color = Color.White
         )
 
-        // Tampilkan Data
         DataRow(
             label = stringResource(R.string.nama_lengkap),
             value = nama ?: ""
