@@ -46,7 +46,6 @@ class MainActivity : ComponentActivity() {
                             val jenisKelamin = backStackEntry.arguments?.getString("jenisKelamin")
                             val alamat = backStackEntry.arguments?.getString("alamat")
 
-                            // Kirim data ke layar TabelData
                             TabelDataScreen(
                                 navController = navController,
                                 nama = nama,
