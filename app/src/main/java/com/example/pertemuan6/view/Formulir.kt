@@ -1,4 +1,4 @@
-package com.example.pertemuan6
+package com.example.pertemuan6.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,11 +14,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.compose.foundation.layout.systemBarsPadding // <-- IMPORT BARU
+import com.example.pertemuan6.Navigasi // <-- Import enum Navigasi
+import com.example.pertemuan6.R
 
 @Composable
 fun FormulirScreen(
-    navController: NavController
+    navController: NavController,
+    modifier: Modifier = Modifier
 ) {
     var nama by remember { mutableStateOf("") }
     var alamat by remember { mutableStateOf("") }
@@ -27,11 +29,12 @@ fun FormulirScreen(
     val jenisKelaminOptions = listOf("Laki-laki", "Perempuan")
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
-            .systemBarsPadding() // <-- FIX #1: TAMBAHKAN INI
+            .systemBarsPadding() // Biar gak nempel status bar
     ) {
+        // Header
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -47,11 +50,13 @@ fun FormulirScreen(
             )
         }
 
+        // Konten Formulir
         Column(
             modifier = Modifier
                 .padding(dimensionResource(R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
+            // Input Nama
             OutlinedTextField(
                 value = nama,
                 onValueChange = { nama = it },
@@ -59,12 +64,11 @@ fun FormulirScreen(
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedLabelColor = Color.DarkGray,
-                    unfocusedLabelColor = Color.DarkGray
+                    unfocusedTextColor = Color.Black
                 )
             )
 
+            // Input Jenis Kelamin
             Text(
                 text = stringResource(R.string.jenis_kelamin),
                 color = Color.DarkGray,
@@ -74,11 +78,10 @@ fun FormulirScreen(
             Row {
                 jenisKelaminOptions.forEach { text ->
                     Row(
-                        Modifier
-                            .selectable(
-                                selected = jenisKelamin == text,
-                                onClick = { jenisKelamin = text }
-                            )
+                        Modifier.selectable(
+                            selected = jenisKelamin == text,
+                            onClick = { jenisKelamin = text }
+                        )
                             .padding(horizontal = dimensionResource(R.dimen.padding_small)),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -91,6 +94,7 @@ fun FormulirScreen(
                 }
             }
 
+            // Input Alamat
             OutlinedTextField(
                 value = alamat,
                 onValueChange = { alamat = it },
@@ -98,17 +102,17 @@ fun FormulirScreen(
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedLabelColor = Color.DarkGray,
-                    unfocusedLabelColor = Color.DarkGray
+                    unfocusedTextColor = Color.Black
                 )
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
 
+            // Tombol Submit
             Button(
                 onClick = {
-                    navController.navigate("tabelData/$nama/$jenisKelamin/$alamat")
+                    // Kirim data ke rute "Detail"
+                    navController.navigate("${Navigasi.Detail.name}/$nama/$jenisKelamin/$alamat")
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
