@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = "formulir"
                     ) {
-                        // Layar "formulir" (Tidak butuh argumen)
                         composable("formulir") {
                             FormulirScreen(navController = navController)
                         }
