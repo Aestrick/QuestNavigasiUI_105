@@ -15,8 +15,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pertemuan6.R
 
-// --- PASTIIN NAMANYA SAMA ---
-// Nama fungsinya TampilDataScreen
 @Composable
 fun TampilDataScreen(
     navController: NavController,
@@ -28,17 +26,16 @@ fun TampilDataScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .systemBarsPadding() // Biar gak nempel status bar
+            .systemBarsPadding()
             .padding(dimensionResource(R.dimen.padding_medium)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
     ) {
         Text(
             text = stringResource(R.string.tampil),
             fontSize = 20.sp,
-            color = Color.Black // Teks jadi hitam
+            color = Color.Black
         )
 
-        // Tampilkan Data
         DataRow(
             label = stringResource(R.string.nama_lengkap),
             value = nama ?: ""
@@ -57,7 +54,6 @@ fun TampilDataScreen(
         )
         Divider(thickness = dimensionResource(R.dimen.thickness_divider), color = Color.Gray)
 
-        // Tombol Kembali
         Button(
             onClick = {
                 navController.popBackStack()
@@ -68,18 +64,17 @@ fun TampilDataScreen(
     }
 }
 
-// Fungsi bantuan
 @Composable
 fun DataRow(label: String, value: String) {
     Row(modifier = Modifier.padding(vertical = 8.dp)) {
         Text(
             text = "$label: ",
             fontWeight = FontWeight.Bold,
-            color = Color.Black // Teks jadi hitam
+            color = Color.Black
         )
         Text(
             text = value,
-            color = Color.DarkGray, // Teks jadi abu tua
+            color = Color.DarkGray,
             fontWeight = FontWeight.Bold
         )
     }

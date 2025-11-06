@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.pertemuan6.Navigasi // <-- Import enum Navigasi
+import com.example.pertemuan6.Navigasi
 import com.example.pertemuan6.R
 
 @Composable
@@ -32,9 +32,8 @@ fun FormulirScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Color.White)
-            .systemBarsPadding() // Biar gak nempel status bar
+            .systemBarsPadding()
     ) {
-        // Header
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -50,13 +49,11 @@ fun FormulirScreen(
             )
         }
 
-        // Konten Formulir
         Column(
             modifier = Modifier
                 .padding(dimensionResource(R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
-            // Input Nama
             OutlinedTextField(
                 value = nama,
                 onValueChange = { nama = it },
@@ -68,7 +65,6 @@ fun FormulirScreen(
                 )
             )
 
-            // Input Jenis Kelamin
             Text(
                 text = stringResource(R.string.jenis_kelamin),
                 color = Color.DarkGray,
@@ -94,7 +90,6 @@ fun FormulirScreen(
                 }
             }
 
-            // Input Alamat
             OutlinedTextField(
                 value = alamat,
                 onValueChange = { alamat = it },
@@ -108,10 +103,8 @@ fun FormulirScreen(
 
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
 
-            // Tombol Submit
             Button(
                 onClick = {
-                    // Kirim data ke rute "Detail"
                     navController.navigate("${Navigasi.Detail.name}/$nama/$jenisKelamin/$alamat")
                 },
                 modifier = Modifier.fillMaxWidth()

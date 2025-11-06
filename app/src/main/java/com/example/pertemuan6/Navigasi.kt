@@ -12,9 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pertemuan6.view.FormulirScreen
-import com.example.pertemuan6.view.TampilDataScreen // <-- Pastikan import-nya TampilDataScreen
+import com.example.pertemuan6.view.TampilDataScreen
 
-// Enum untuk rute, persis seperti di screenshot
 enum class Navigasi {
     Formulirku,
     Detail
@@ -33,12 +32,10 @@ fun DataApp(
             startDestination = Navigasi.Formulirku.name // Layar pertama
         ) {
 
-            // Rute 1: Layar Formulir
             composable(route = Navigasi.Formulirku.name) {
                 FormulirScreen(navController = navController)
             }
 
-            // Rute 2: Layar Detail (TampilData)
             composable(
                 route = "${Navigasi.Detail.name}/{nama}/{jenisKelamin}/{alamat}",
                 arguments = listOf(
@@ -47,13 +44,10 @@ fun DataApp(
                     navArgument("alamat") { type = NavType.StringType }
                 )
             ) { backStackEntry ->
-                // Ambil data yang dikirim dari rute
                 val nama = backStackEntry.arguments?.getString("nama")
                 val jenisKelamin = backStackEntry.arguments?.getString("jenisKelamin")
                 val alamat = backStackEntry.arguments?.getString("alamat")
 
-                // --- PASTIIN NAMANYA SAMA ---
-                // Panggil TampilDataScreen
                 TampilDataScreen(
                     navController = navController,
                     nama = nama,

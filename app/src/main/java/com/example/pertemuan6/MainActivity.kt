@@ -11,8 +11,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Pertemuan6Theme(darkTheme = false) { // Kita paksa tema terang
-                DataApp() // Cukup panggil DataApp
+            Pertemuan6Theme(darkTheme = false) {
+                DataApp()
             }
         }
     }
