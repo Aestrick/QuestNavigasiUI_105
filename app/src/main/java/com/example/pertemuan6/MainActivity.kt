@@ -42,7 +42,6 @@ class MainActivity : ComponentActivity() {
                                 navArgument("alamat") { type = NavType.StringType }
                             )
                         ) { backStackEntry ->
-                            // Ambil data dari argumen
                             val nama = backStackEntry.arguments?.getString("nama")
                             val jenisKelamin = backStackEntry.arguments?.getString("jenisKelamin")
                             val alamat = backStackEntry.arguments?.getString("alamat")
