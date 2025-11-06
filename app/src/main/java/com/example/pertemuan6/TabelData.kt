@@ -62,7 +62,6 @@ fun TabelDataScreen(
             color = Color.Gray
         )
 
-        // Tombol Kembali
         Button(
             onClick = {
                 navController.popBackStack()
