@@ -34,7 +34,6 @@ class MainActivity : ComponentActivity() {
                             FormulirScreen(navController = navController)
                         }
 
-                        // Layar "tabelData" (Kita definisikan argumennya)
                         composable(
                             route = "tabelData/{nama}/{jenisKelamin}/{alamat}",
                             arguments = listOf(
