@@ -11,16 +11,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
 fun FormulirScreen(
-    viewModel: `FormulirViewModel.kt`,
     navController: NavController
 ) {
-    // Ambil data (state) dari ViewModel
-    val uiState by viewModel.uiState.collectAsState()
+    // --- KITA SIMPAN DATA DI SINI (BUKAN DI VIEWMODEL) ---
+    var nama by remember { mutableStateOf("") }
+    var alamat by remember { mutableStateOf("") }
+    var jenisKelamin by remember { mutableStateOf("") }
+    // --------------------------------------------------
 
     val jenisKelaminOptions = listOf("Laki-laki", "Perempuan")
 
@@ -40,7 +43,8 @@ fun FormulirScreen(
             Text(
                 text = stringResource(R.string.home),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
             )
         }
 
@@ -52,39 +56,57 @@ fun FormulirScreen(
         ) {
             // Input Nama
             OutlinedTextField(
-                value = uiState.nama,
-                onValueChange = { viewModel.setNama(it) },
+                value = nama, // <-- Pakai state lokal
+                onValueChange = { nama = it }, // <-- Pakai state lokal
                 label = { Text(stringResource(R.string.nama_lengkap)) },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedLabelColor = Color.DarkGray,
+                    unfocusedLabelColor = Color.DarkGray
+                )
             )
 
             // Input Jenis Kelamin
-            Text(text = stringResource(R.string.jenis_kelamin))
+            Text(
+                text = stringResource(R.string.jenis_kelamin),
+                color = Color.DarkGray,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 8.dp)
+            )
             Row {
                 jenisKelaminOptions.forEach { text ->
                     Row(
                         Modifier
                             .selectable(
-                                selected = uiState.jenisKelamin == text,
-                                onClick = { viewModel.setJenisKelamin(text) }
+                                selected = jenisKelamin == text, // <-- Pakai state lokal
+                                onClick = { jenisKelamin = text } // <-- Pakai state lokal
                             )
-                            .padding(horizontal = dimensionResource(R.dimen.padding_small))
+                            .padding(horizontal = dimensionResource(R.dimen.padding_small)),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = uiState.jenisKelamin == text,
-                            onClick = { viewModel.setJenisKelamin(text) }
+                            selected = jenisKelamin == text, // <-- Pakai state lokal
+                            onClick = { jenisKelamin = text } // <-- Pakai state lokal
                         )
-                        Text(text = text)
+                        Text(text = text, color = Color.DarkGray)
                     }
                 }
             }
 
             // Input Alamat
             OutlinedTextField(
-                value = uiState.alamat,
-                onValueChange = { viewModel.setAlamat(it) },
+                value = alamat, // <-- Pakai state lokal
+                onValueChange = { alamat = it }, // <-- Pakai state lokal
                 label = { Text(stringResource(R.string.alamat)) },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedLabelColor = Color.DarkGray,
+                    unfocusedLabelColor = Color.DarkGray
+                )
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
@@ -92,8 +114,9 @@ fun FormulirScreen(
             // Tombol Submit
             Button(
                 onClick = {
-                    // Perintah untuk pindah layar
-                    navController.navigate("tabelData")
+                    // --- KIRIM DATA LEWAT NAVIGASI ---
+                    navController.navigate("tabelData/$nama/$jenisKelamin/$alamat")
+                    // ---------------------------------
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
